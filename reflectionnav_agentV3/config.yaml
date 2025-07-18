@@ -1,0 +1,71 @@
+# ReflectionNav Agent V3 Configuration File
+
+# Detection and Perception Settings
+vlm_detection:
+  interval: 2                    # VLM detection interval in steps
+  distance_threshold: 15.0       # Distance threshold for triggering VLM detection (meters)
+  
+# Navigation and Search Settings
+navigation:
+  max_search_radius: 30.0        # Maximum search radius in meters
+  search_threshold: 0.05         # Information gain threshold for search
+  adaptive_scale_distance_threshold: 20.0 # NEW: Distance threshold for switching to adaptive scale
+  action_scale:
+    navigate: 0.7                # Action scaling factor for navigation
+    search: 1.0                  # Action scaling factor for search
+  view_width_multiplier: 2.0     # Multiplier for calculating view width based on altitude
+
+# Strategy Switching Thresholds
+strategy:
+  navigate_timeout: 10            # Maximum steps before switching from Navigate to Search
+  search_timeout: 10           # Maximum steps before switching from Search to Locate
+  landmark_proximity: 30.0       # Distance threshold for landmark proximity check (meters)
+  target_proximity: 5.0          # Distance threshold for target proximity check (meters)
+  force_locate_on_final_step: true  # Force locate operation on final step
+
+# Memory and Experience Settings
+memory:
+  experience_db_path: "/home/tong/tongworkspace/geonav/reflectionnav_agentV3/experience_database"  # 🔧 修复：使用绝对路径
+  max_retrieval_results: 3       # Maximum number of experience memories to retrieve
+  similarity_threshold: 0.7      # Similarity threshold for memory retrieval
+
+# LLM and Parsing Settings
+llm:
+  max_retries: 3                 # Maximum retry attempts for LLM calls
+  max_tokens: 500                # Maximum tokens for LLM responses
+  temperature: 0.1               # Temperature for LLM responses
+
+# Path Settings
+paths:
+  semantic_images_save_dir: "V3"        # Directory name for saving semantic images (relative to output_dir)
+  rgb_images_save_dir: "V3"             # Directory name for saving RGB images (relative to output_dir)
+  results_save_dir: "V3"                # Directory name for saving results (relative to output_dir)
+  
+# RAG Settings
+rag:
+  enable_rag: true             # 🔧 Fixed: Enable RAG by default
+  retrieval_interval: 3          # Steps between RAG retrievals (now properly implemented)
+  context_window_size: 500       # Context window size for RAG
+  enable_experience_memory: true # 🔧 Fixed: Enable experience memory retrieval by default
+  enable_strategic_memory: true  # 🔧 Fixed: Enable strategic plan memory by default
+
+# Reflection Settings
+reflection:
+  enable_reflection: true        # Master switch for reflection system
+  enable_success_reflection: true
+  enable_failure_reflection: true
+  max_key_experiences: 5         # Maximum key experiences to extract
+  store_strategic_plans: true    # Store successful/failed plans for future reference
+
+# Logging and Output Settings
+logging:
+  level: "INFO"                  # Logging level: DEBUG, INFO, WARNING, ERROR
+  enable_trajectory_logging: true
+  save_semantic_images: true
+  save_rgb_images: false
+
+# Experimental Features
+experimental:
+  enable_adaptive_action_scale: true  # 🔧 Fixed: Enable adaptive action scaling by default to test the feature
+  enable_multi_step_planning: false
+  enable_scene_graph_caching: true 
